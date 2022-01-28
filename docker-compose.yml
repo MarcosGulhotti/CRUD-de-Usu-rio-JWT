@@ -1,0 +1,31 @@
+version: "3.1"
+
+services:
+  app:
+    build: .
+    command: npm run dev
+    ports:
+      - 3000:3000
+    environment:
+      - PG_PASSWORD=gulhotti
+      - PG_DB=entrega
+      - PG_USER=postgres
+      - PG_HOST=db
+    volumes:
+      - .:/code
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: "gulhotti"
+      POSTGRES_USER: "postgres"
+      POSTGRES_DB: "entrega"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
